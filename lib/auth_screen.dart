@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'home_screen.dart';
+import 'package:provider/provider.dart';
+import 'providers/customization_provider.dart';
+import 'providers/focus_provider.dart';
+import 'providers/settings_provider.dart';
+import 'providers/theme_provider.dart';
+import 'root_shell.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -61,11 +66,31 @@ class _AuthScreenState extends State<AuthScreen> {
         await userCredential.user?.updateDisplayName(_nameController.text.trim());
       }
 
-      // If successful, navigate to the Home Screen
+      // Re-sync cloud-backed data now that we know who's signed in — these
+      // providers are created at app startup before auth resolves, so their
+      // first load runs against no user and silently no-ops. Each provider
+      // swallows its own sync errors internally, but we also guard here so
+      // that even an unexpected failure can never block navigation the way
+      // it used to (auth would succeed, then the whole screen would just
+      // sit there because one of these throw).
+      if (mounted) {
+        try {
+          await Future.wait([
+            context.read<CustomizationProvider>().reload(),
+            context.read<FocusProvider>().reload(),
+            context.read<SettingsProvider>().reload(),
+            context.read<ThemeProvider>().reload(),
+          ]);
+        } catch (e) {
+          print('Post-login data reload error: $e');
+        }
+      }
+
+      // If successful, navigate to the main app shell
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => const RootShell()),
         );
       }
     } on FirebaseAuthException catch (e) {

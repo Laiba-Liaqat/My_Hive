@@ -1,20 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_core/firebase_core.dart'; // New import
-import 'firebase_options.dart'; // New import
-import 'splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'providers/customization_provider.dart';
+import 'services/apiary_database.dart';
 
-// 1. Change main() to an asynchronous function
+import 'firebase_options.dart';
+import 'splash_screen.dart';
+import 'services/storage_service.dart';
+import 'services/audio_service.dart';
+import 'services/notification_service.dart';
+
+import 'theme/app_theme.dart';
+
+// I added the "providers/" path directly here
+import 'providers/theme_provider.dart';
+import 'providers/settings_provider.dart';
+import 'providers/focus_provider.dart';
+import 'providers/wallet_provider.dart';
+
 void main() async {
-  // 2. Ensure Flutter's engine is fully running before initializing Firebase
   WidgetsFlutterBinding.ensureInitialized();
   
-  // 3. Boot up Firebase using the auto-generated settings
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyHiveApp());
+  final storageService = StorageService();
+  final audioService = AudioService();
+  final notificationService = NotificationService();
+
+runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider(storageService)),
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
+        ChangeNotifierProvider(create: (_) => CustomizationProvider()), 
+        Provider<AudioService>(
+          create: (_) => audioService,
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider<NotificationService>(create: (_) => notificationService),
+        
+        // ADD THIS LINE
+        ChangeNotifierProvider(create: (_) => FocusProvider(storageService)), 
+      ],
+      child: const MyHiveApp(),
+    ),
+  );
 }
 
 class MyHiveApp extends StatelessWidget {
@@ -22,21 +54,15 @@ class MyHiveApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+
     return MaterialApp(
       title: 'My Hive',
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFFFDF3C7),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFD4A340),
-          brightness: Brightness.light,
-        ),
-        textTheme: GoogleFonts.outfitTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
-      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
+      themeMode: themeProvider.mode,
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
+      home: const SplashScreen(),
     );
   }
 }

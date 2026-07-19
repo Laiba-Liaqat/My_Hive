@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'onboarding_screen.dart';
+import 'root_shell.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -46,9 +48,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _controller.forward();
 
   Timer(const Duration(seconds: 4), () {
+      final alreadySignedIn = FirebaseAuth.instance.currentUser != null;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+        MaterialPageRoute(
+          builder: (context) =>
+              alreadySignedIn ? const RootShell() : const OnboardingScreen(),
+        ),
       );
     });
   }
