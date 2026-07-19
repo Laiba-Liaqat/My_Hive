@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "850518864427",
+    "project_id": "my-hive-d509e",
+    "storage_bucket": "my-hive-d509e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850518864427:android:ddffadf6d11577522ff06e",
+        "android_client_info": {
+          "package_name": "com.example.myhive"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGCLxZsBx9rqfj_QowKxeySFf6xLqBr0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

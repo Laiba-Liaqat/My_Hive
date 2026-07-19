@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart'; // New import
+import 'firebase_options.dart'; // New import
 import 'splash_screen.dart';
 
-void main() {
+// 1. Change main() to an asynchronous function
+void main() async {
+  // 2. Ensure Flutter's engine is fully running before initializing Firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // 3. Boot up Firebase using the auto-generated settings
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyHiveApp());
 }
 
@@ -15,13 +26,11 @@ class MyHiveApp extends StatelessWidget {
       title: 'My Hive',
       theme: ThemeData(
         useMaterial3: true,
-        // Global background color set to match your soft, muted yellow
-        scaffoldBackgroundColor: const Color(0xFFFDF3C7), 
+        scaffoldBackgroundColor: const Color(0xFFFDF3C7),
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFFD4A340),
           brightness: Brightness.light,
         ),
-        // Setting Outfit as the global font package
         textTheme: GoogleFonts.outfitTextTheme(
           Theme.of(context).textTheme,
         ),
