@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Added Firebase Auth
 import 'auth_screen.dart'; // Added Auth Screen import
 
+<<<<<<< HEAD
 import 'providers/customization_provider.dart';
 import 'providers/focus_provider.dart';
 import 'providers/settings_provider.dart';
@@ -11,6 +12,15 @@ import 'services/audio_service.dart';
 import 'theme/app_theme.dart';
 import 'utils/constants.dart';
 import 'widgets/hive_progress_widget.dart';
+=======
+import '../providers/customization_provider.dart';
+import '../providers/focus_provider.dart';
+import '../providers/settings_provider.dart';
+import '../services/audio_service.dart';
+import '../theme/app_theme.dart';
+import '../utils/constants.dart';
+import '../widgets/hive_progress_widget.dart';
+>>>>>>> 2f1d6711d3600f4231820079a900d6b116b9c531
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -672,6 +682,7 @@ class _ResultStat extends StatelessWidget {
     );
   }
 }
+<<<<<<< HEAD
 class SimpleHoneyStatCard extends StatelessWidget {
   const SimpleHoneyStatCard({super.key});
 
@@ -726,3 +737,5 @@ class SimpleHoneyStatCard extends StatelessWidget {
     );
   }
 }
+=======
+>>>>>>> 2f1d6711d3600f4231820079a900d6b116b9c531
