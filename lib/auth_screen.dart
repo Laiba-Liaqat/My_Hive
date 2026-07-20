@@ -256,7 +256,7 @@ class _AuthScreenState extends State<AuthScreen> {
       ),
     );
   }
-
+//buildTextField 
   Widget _buildTextField({
     required String hintText,
     required IconData icon,
@@ -282,4 +282,4 @@ class _AuthScreenState extends State<AuthScreen> {
       ),
     );
   }
-}
+}   
