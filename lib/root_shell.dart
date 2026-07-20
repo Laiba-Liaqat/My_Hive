@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'providers/settings_provider.dart';
 import 'theme/app_theme.dart';
+
+import 'apiary_screen.dart';
 import 'home_screen.dart';
 import 'mind_relax_screen.dart';
 import 'settings_screen.dart';
-import 'wallet_screen.dart';
+import 'wallet_screen.dart'; // Added WalletScreen import
 
 /// Hosts every top-level screen in a single [PageView] 
 class RootShell extends StatefulWidget {
@@ -19,21 +22,21 @@ class _RootShellState extends State<RootShell> {
   int _index = 0;
   late final PageController _pageController = PageController();
 
-  // 1. Removed WalletScreen from here
-  static const _screens = [
+  // Restored WalletScreen in the screen list
+  final List<Widget> _screens = [
     HomeScreen(),
-    
+    ApiaryScreen(),
     MindRelaxScreen(),
-    WalletScreen(),
+    WalletScreen(), 
     SettingsScreen(),
   ];
 
-  // 2. Removed the Wallet icon from here
+  // Restored the Wallet icon in the navigation items
   static const _items = [
     (emoji: '⏳', label: 'Focus'),
     (emoji: '🐝', label: 'Apiary'),
     (emoji: '🌸', label: 'Relax'),
-    (emoji: '👛', label: 'Wallet'),
+    (emoji: '💳', label: 'Wallet'),
     (emoji: '⚙️', label: 'Settings'),
   ];
 
@@ -71,7 +74,11 @@ class _RootShellState extends State<RootShell> {
               color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 16, offset: const Offset(0, 6)),
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.08), 
+                  blurRadius: 16, 
+                  offset: const Offset(0, 6)
+                ),
               ],
             ),
             child: Row(
@@ -94,7 +101,12 @@ class _RootShellState extends State<RootShell> {
 }
 
 class _NavItem extends StatelessWidget {
-  const _NavItem({required this.emoji, required this.label, required this.selected, required this.onTap});
+  const _NavItem({
+    required this.emoji, 
+    required this.label, 
+    required this.selected, 
+    required this.onTap
+  });
 
   final String emoji;
   final String label;
@@ -109,7 +121,9 @@ class _NavItem extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: AnimatedScale(
         scale: selected ? 1.0 : 0.92,
-        duration: reduceMotion ? const Duration(milliseconds: 120) : const Duration(milliseconds: 320),
+        duration: reduceMotion 
+            ? const Duration(milliseconds: 120) 
+            : const Duration(milliseconds: 320),
         curve: reduceMotion ? Curves.linear : Curves.elasticOut,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),

@@ -85,7 +85,7 @@ class _ApiaryScreenState extends State<ApiaryScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
-                childAspectRatio: 1.5,
+                childAspectRatio: 1.0,
                 children: [
                   StatCard(label: 'Honey Produced', value: formatHoney(focus.totalHoneyMl), icon: '🍯'),
                   StatCard(label: 'Failed Batches', value: '${focus.failedBatchCount}', icon: '🥀', accent: HiveColors.danger),

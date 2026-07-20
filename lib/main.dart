@@ -16,7 +16,7 @@ import 'theme/app_theme.dart';
 import 'providers/theme_provider.dart';
 import 'providers/settings_provider.dart';
 import 'providers/focus_provider.dart';
-import 'providers/wallet_provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
