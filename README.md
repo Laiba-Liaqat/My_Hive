@@ -86,9 +86,18 @@ HiveFocus relies on robust, production-ready Flutter packages:
 
 ## 📱 Screenshots & Visuals
 
-![Homescreen](assets/images/homescreen.png)
-![Future Screen](assets/images/future_screen.png)
-![Apiary Screen](assets/images/apiary_screen.png)
-![Relax Screen](assets/images/relax_screen.png)
-![Settings Screen](assets/images/settings_screen.png)
-![Customization](assets/images/customization.png)
+![Homescreen](assets/images/homescreen.jpeg)
+
+![Apiary Screen](assets/images/apiary%20screen.jpeg)
+
+![Future Screen](assets/images/future%20screen.jpeg)
+
+![Relax Screen](assets/images/relax%20screen.jpeg)
+
+![Wallet Screen](assets/images/wallet%20screen.jpeg)
+
+![Settings Screen](assets/images/settings%20screen.jpeg)
+
+![Customization](assets/images/customization.jpeg)
+
+
