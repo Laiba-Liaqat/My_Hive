@@ -1,60 +1,94 @@
-# 🐝 Hive Focus
+# 🐝 HiveFocus — Gamified Productivity & Focus Timer
 
-> **Cultivate focus. Build your apiary. Prevent burnout.**
+[![Flutter Version](https://img.shields.io/badge/Flutter-3.x-02569B?style=flat-square&logo=flutter)](https://flutter.dev)
+[![Dart Version](https://img.shields.io/badge/Dart-3.x-0175C2?style=flat-square&logo=dart)](https://dart.dev)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android%20%7C%20Web-lightgrey?style=flat-square)]()
 
-Hive Focus is a minimal, distraction-aware productivity application designed to keep you deeply engaged in your work. By combining robust time management with intuitive gamification, your focus sessions breathe life into a digital honeycomb. Leave the app, and the colony collapses. Complete your sessions, and watch your 3D apiary thrive.
-
----
-
-## ✨ Core Features
-
-*   **Focus Timer:** Flexible scheduling with 15, 25, and 45-minute presets, alongside a custom duration slider (5–180 minutes). Includes a live countdown, pause/resume functionality, and intentional "Give Up" fail-safes.
-*   **Gamified Hive Dynamics:** A `CustomPainter` honeycomb dynamically fills with animated, liquid honey as you work. Orbiting bees visualize active focus, creating a living digital environment.
-*   **Strict Distraction Detection:** Leverages `WidgetsBindingObserver` to monitor application lifecycle states. Leaving the foreground triggers a real-time "distracted" penalty, enforcing strict discipline.
-*   **Mind Relax Space:** A dedicated cool-down environment to recharge between deep work sessions. Features guided breathing exercises, ambient acoustics, and gentle visual cool-downs to prevent cognitive burnout.
-*   **3D-Style Apiary Collection:** Renders completed sessions as honey jars across depth-scaled shelves (back rows appear smaller/dimmer; front rows larger/brighter), creating a captivating perspective illusion without the overhead of a heavy 3D engine.
-*   **Comprehensive Analytics Dashboard:** Track your productivity through detailed metrics:
-    *   Total honey produced, failed batches, and average session length.
-    *   Time-of-day bar charts and yield trend lines (Day/Week/Month/Year).
-    *   A dynamic focus calendar featuring live streak counters and honey markers.
-*   **Adaptive Theming:** Seamlessly toggle between warm, honey-inspired light and dark modes, fully persisted via local storage.
+**HiveFocus** is a feature-rich, beautifully crafted gamified productivity application built with Flutter. It transforms the classic Pomodoro focus technique into an immersive beekeeping and honey-harvesting experience. Cultivate your focus sessions, watch your digital meadow bloom, fill honeycomb cells with golden liquid honey, and build unbreakable productivity habits!
 
 ---
 
-## 📂 Project Structure
+## ✨ Key Features
 
-The project utilizes a clean, feature-driven architecture to ensure maintainability and scalable performance.
+*   **🍯 Immersive Liquid Honey Timer (`HiveProgressWidget` & `HoneycombPainter`)**: Watch live wave-fill liquid honey animations fill up 7 interlocking hexagonal honeycomb cells in real-time as your focus session progresses. Includes dynamic glow effects and colony health indicators.
+*   **🌾 Living Meadow Ecosystem (`MeadowView` & `BeeAnimation`)**: Experience a dynamic canvas-painted ecosystem featuring multi-layered rolling hills, procedural sun glows, responsive blooming flowers, and orbital bees circling your hive with physics-based parametric motion.
+*   **🏛️ 3D Apiary Vault (`Apiary3DView`)**: Inspect your completed focus sessions visualized as a depth-illusion 3D perspective grid of honey jars receding into the distance, complete with session yield tooltips and historical metadata.
+*   **📅 Consistency Calendar (`FocusCalendar`)**: Track your daily productivity streaks using a customized monthly calendar view highlighting active focus days with golden honey gradients.
+*   **📊 Advanced Analytics (`ProductivityChart`)**: Analyze your honey yield over custom time horizons (Daily, Weekly, Monthly) via sleek interactive line charts with area fills and touch tooltips.
+*   **✨ Glassmorphism UI (`GlassContainer`)**: Modern translucent honeycomb and glass aesthetics featuring backdrop blurring, subtle glowing borders, and seamless dark/light theme adaptation.
+*   **🛡️ Robust Asset Fallbacks (`RiveOrFallback`)**: Intelligent asset wrapper that gracefully degrades between binary Rive animations and native Flutter custom painters to ensure zero crash vulnerability.
 
-```plaintext
+---
+
+## 📂 Project Architecture & Components
+
+The application is modularly structured around custom UI widgets and rendering components:
+
+```text
 lib/
-├── main.dart                  # Application entry point & provider wiring
-├── theme/
-│   └── app_theme.dart         # Light/dark honey-inspired theme definitions
-├── models/
-│   └── focus_session.dart     # Data models for FocusSession & HoneyJar
-├── providers/
-│   ├── focus_provider.dart    # Timer state machine & distraction detection
-│   └── theme_provider.dart    # Theme mode persistence logic
-├── services/
-│   └── storage_service.dart   # SharedPreferences persistence management
-├── screens/
-│   ├── root_shell.dart        # Bottom navigation shell
-│   ├── home_screen.dart       # Primary focus timer interface
-│   ├── mind_relax_screen.dart # Breathing and cool-down environment
-│   ├── apiary_screen.dart     # Analytics dashboard & data visualization
-│   └── settings_screen.dart   # Theme and application preferences
 ├── widgets/
-│   ├── honeycomb_painter.dart # CustomPainter: empty -> wax -> capped honey
-│   ├── bee_animation.dart     # Orbiting bee animation for active sessions
-│   ├── hive_progress_widget.dart # Composed painter, bee, and labels
-│   ├── apiary_3d_view.dart    # Depth-scaled honey jar shelving
-│   ├── stat_card.dart         # Reusable dashboard statistic tile
-│   ├── time_distribution_chart.dart
-│   ├── productivity_chart.dart # Line chart with range toggles
-│   └── focus_calendar.dart    # table_calendar wrapper with honey markers
-└── utils/
-    └── constants.dart         # Honey-yield formulas & formatting helpers
-🚀 Quick Start GuideEnsure you have Flutter installed (stable channel, 3.22+ recommended). View the official installation documentation.1. Generate Platform FoldersFrom the project root, generate the platform folders for your specific machine. This ensures your android/, ios/, and web/ directories match your local Flutter SDK version, preventing stale boilerplate issues.Bashflutter create .
-2. Install DependenciesBashflutter pub get
-3. Run the ApplicationBashflutter run
-⚙️ Mechanics & TuningHive Focus allows developers to easily adjust the gamification difficulty and reward mechanics to suit different productivity philosophies.ParameterLocationDescriptionDistraction Grace PeriodFocusProvider.distractionGraceSecondsDefines how long the app can remain backgrounded before a batch automatically fails. Defaults to 6 seconds—deliberately tight to simulate stopped production.Honey Yield FormulaAppConstants.honeyForSessionAdjusts the baseline mL-per-minute honey production rate.Partial YieldsAppConstants.partialHoneyConfigures the bonus curve and reward logic for longer sessions or prematurely ended intervals.🎨 Design LanguageHive Focus is designed to feel soft, organic, and hand-made—like a real apiary, rather than a corporate spreadsheet.Color Palette: Warm creams, rich honey golds, and deep wax browns (HiveColors in theme/app_theme.dart).Typography: Driven by google_fonts:Headers & Display: Fredoka (adds a rounded, friendly, and geometric touch).Body & UI Text: Nunito (highly readable with soft, inviting terminals).
+│   ├── apiary_3d_view.dart          # 3D perspective grid of completed honey jars
+│   ├── bee_animation.dart           # Orbital flight physics & blooming flower pulses
+│   ├── focus_calendar.dart          # Monthly consistency tracking calendar
+│   ├── glass_container.dart         # Translucent glassmorphism containers
+│   ├── hive_progress_widget.dart    # Central focus timer wrapper & wave controller
+│   ├── honeycomb_painter.dart       # Custom canvas painter for hexagonal honey cells
+│   ├── meadow_view.dart             # Living background ecosystem & rolling hills
+│   ├── productivity_chart.dart      # FL-Chart line analytics & range toggles
+│   ├── profile_dashboard_card.dart  # User metadata & productivity stats card
+│   └── rive_or_fallback.dart        # Rive asset loader with native fallback
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Ensure you have the following installed on your local machine:
+*   [Flutter SDK](https://docs.flutter.dev/get-started/install) (v3.0 or higher)
+*   [Dart SDK](https://dart.dev/get-started) (v3.0 or higher)
+*   An IDE such as [VS Code](https://code.visualstudio.com/) or [Android Studio](https://developer.android.com/studio)
+
+### Installation & Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/hive-focus.git
+   cd hive-focus
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   flutter pub get
+   ```
+
+3. **Run the application:**
+   ```bash
+   flutter run
+   ```
+
+---
+
+## 📦 Dependencies
+
+HiveFocus relies on robust, production-ready Flutter packages:
+
+| Package | Purpose |
+| :--- | :--- |
+| [`fl_chart`](https://pub.dev/packages/fl_chart) | Highly customizable interactive line charts for productivity analytics. |
+| [`table_calendar`](https://pub.dev/packages/table_calendar) | Feature-packed calendar widget for streak and focus day tracking. |
+| [`rive`](https://pub.dev/packages/rive) | Vector graphic animations for interactive UI elements (with native fallback). |
+| [`firebase_auth`](https://pub.dev/packages/firebase_auth) | User authentication and session management. |
+
+---
+
+## 📱 Screenshots & Visuals
+
+![Homescreen](assets/images/homescreen.png)
+![Future Screen](assets/images/future_screen.png)
+![Apiary Screen](assets/images/apiary_screen.png)
+![Relax Screen](assets/images/relax_screen.png)
+![Settings Screen](assets/images/settings_screen.png)
+![Customization](assets/images/customization.png)
